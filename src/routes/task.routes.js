@@ -1,17 +1,16 @@
-const express = require("express");
+import express from "express";
+import TaskController from "../controllers/task.controller.js";
+import TaskModel from "../models/task.models.js";
 
-const TaskController = require("../controllers/task.controller");
-const TaskModel = require("../models/task.models");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  return new TaskController(req, res).getTasks()
+  return new TaskController(req, res).getTasks();
 });
 
 router.get("/:id", async (req, res) => {
   try {
     const taskId = req.params.id;
-
     const task = await TaskModel.findById(taskId);
 
     if (!task) {
@@ -35,15 +34,13 @@ router.post("/", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const taskId = req.params.id;
-
     const taskData = req.body;
-
     const taskToUpdate = await TaskModel.findById(taskId);
 
     const allowedUpdates = ["isCompleted"];
     const requestUpdates = Object.keys(req.body);
 
-    for (update of requestUpdates) {
+    for (const update of requestUpdates) {
       if (allowedUpdates.includes(update)) {
         taskToUpdate[update] = taskData[update];
       }
@@ -64,11 +61,10 @@ router.delete("/:id", async (req, res) => {
       return res.status(500).send("Essa tarefa não foi encontrada");
     }
     const deleteTask = await TaskModel.findByIdAndDelete(taskId);
-
     res.status(200).send(deleteTask);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-module.exports = router;
+export default router;

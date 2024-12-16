@@ -1,14 +1,12 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const TaskRouter = require("./src/routes/task.routes");
-
-const connectToDataBase = require("./src/database/mongoose.database");
+import express from "express";
+import dotenv from "dotenv";
+import TaskRouter from "./src/routes/task.routes.js";
+import connectToDataBase from "./src/database/mongoose.database.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-
 
 connectToDataBase();
 

@@ -1,17 +1,19 @@
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
 
-const TaskSchema = Schema({
-    description: {
-        type: String,
-        required: true,
-    },
+const { Schema, model } = mongoose;
 
-    isCompleted: {
-        type: Boolean,
-        default: false,
-    },
+const TaskSchema = new Schema({
+  description: {
+    type: String,
+    required: true,
+  },
+
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const TaskModel = model("Task", TaskSchema);
 
-module.exports = TaskModel;
+export default TaskModel;
