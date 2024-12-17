@@ -1,27 +1,14 @@
 import express from "express";
 import TaskController from "../controllers/task.controller.js";
-import TaskModel from "../models/task.models.js";
 
 const router = express.Router();
+const taskController = new TaskController(); 
 
-router.get("/", async (req, res) => {
-  return new TaskController(req, res).getTasks();
-});
 
-router.get("/:id", async (req, res) => {
-  return new TaskController(req, res).getTasksById();
-});
-
-router.post("/", async (req, res) => {
-  return new TaskController(req, res).create();
-});
-
-router.patch("/:id", async (req, res) => {
-  return new TaskController(req, res).update();
-});
-
-router.delete("/:id", async (req, res) => {
-  return new TaskController(req, res).delete();
-});
+router.get("/", taskController.getTasks); 
+router.get("/:id", taskController.getTasksById); 
+router.post("/", taskController.create); 
+router.patch("/:id", taskController.update); 
+router.delete("/:id", taskController.delete); 
 
 export default router;
