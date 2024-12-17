@@ -13,14 +13,12 @@ app.use(
     origin: "https://task-manager-frontend-ivory-alpha.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
 app.use(express.json());
-
 connectToDataBase();
-
 app.use("/tasks", TaskRouter);
-
 
 export default app;
