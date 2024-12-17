@@ -7,7 +7,15 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://task-manager-frontend-ivory-alpha.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 connectToDataBase();
@@ -16,4 +24,4 @@ app.use("/tasks", TaskRouter);
 
 const port = process.env.PORT || 8000;
 
-app.listen(port, () => console.log("Listening on port"));
+app.listen(port, () => console.log("Listening on port " + port));
